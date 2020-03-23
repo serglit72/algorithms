@@ -43,52 +43,43 @@ Print the answer as a part of a message::
 to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
-fixed_lines = []
-fixed_lines_calls =[]
-mobile_lines = []
-telemark = ['140',]
-all_codes = []
+codes = set()
+fixed_lines_calls = 0
+bangalores_caller = 0
 ###### Part A ################
 for row in calls:
-  
-  if row[0].startswith("9") or row[0].startswith("8") or row[0].startswith("7"):
-    code = row[0][0:4]
-    mobile_lines.append(code)
-  elif row[1].startswith("9") or row[1].startswith("8") or row[1].startswith("7"):
-    code = row[1][0:4]
-    mobile_lines.append(code)
-  elif row[0].startswith("(0") :
-    if row[0].startswith("(080)") :
-      fixed_lines_calls.append((row[0],row[1]))
-      
-    code = row[0].split(")")
-    fixed_lines.append(code[0].strip("("))
-  elif row[1].startswith("(0") :
-    code = row[1].split(")")
-    fixed_lines.append(code[0].strip("("))
 
-all_codes = fixed_lines+mobile_lines+telemark
+# looking up for all callers form Bangalore:  
+    if row[0].startswith("(080)"):
+      bangalores_caller += 1
+      #filtering for all mobile lines recievers of the calls by "area code 080" callers
+      if row[1].startswith("7") or row[1].startswith("8") or row[1].startswith("9"):
+        code = row[1][0:4]
+        codes.add(code)
+# filtering for all fixed lines recievers of the calls by "area code 080" callers
+      elif row[1].startswith("("):
+        code = row[1][1:(row[1].find(')'))]
+        fixed_lines_calls += 1 #additional counting of calls for Task2
+        codes.add(code)
+        
+       
+
+
 print("The numbers called by people in Bangalore have codes:")
-
-sorted_list = sorted(set(all_codes))
-for each in sorted_list:
+for each in sorted(codes):
   print(each)
-
+    
 ##### Part B #########################
 
-total_calls = len(fixed_lines_calls)
-total_080_calls = 0
 
-for each in fixed_lines_calls:
-  if each[1].startswith("(080)"):
-    total_080_calls +=1
-print("{} percent of calls from fixed lines in Bangalore are calls \
- to other fixed lines in Bangalore.".format(total_080_calls/total_calls))
+print("{:.2%} of calls from fixed lines in Bangalore are calls \
+ to other fixed lines in Bangalore.".format(fixed_lines_calls/bangalores_caller))
 
 """ 
 Big O calculation (worst case):
 
-O == 6n + n log n =  n log(n)  , because of linear dependency of the lists length. We have 5 lists by n items and "set" operation O(n) and sort() operation n log(n). 
+O == n + n log n =  n log(n)  , because of linear dependency of the lists length. \
+   We have 1 list by n items and "set" operation O(n) and sort() operation n log(n). 
 
-
+O(nlog(n))
 """

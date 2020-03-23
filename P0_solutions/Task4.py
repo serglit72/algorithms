@@ -25,37 +25,36 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order 
 with no duplicates.
 """
-senders = []
-recievers = []
-telemarks =[]
+texters = set()
+callers = set()
+telemarks = set()
 
+# filtering all texting mobile numbers -"texters" group (not telemarketers)
 for text in texts:
-    senders.append(text[0])
-    recievers.append(text[1])
+    texters.add(text[0])
+    texters.add(text[1])
+
+# filtering all recieving phone numbers (not telemarketers) and joining them to the texters group 
 
 for row in calls:
-    senders.append(row[0])
-    recievers.append(row[1])
+    texters.add(row[1])
+# for each callers from outcome calls list we check if the number is NOT in "texter's" list
+for row in calls:
+    if row[0] not in texters:
+        telemarks.add(row[0])
     
-sendrs = sorted(set(senders))
-recvrs = sorted(set(recievers))
+telemarketers = sorted(telemarks)
 
-print(len(sendrs))
-for each in sendrs:
-    
-    if  each not in recvrs:
-        telemarks.append(each)
 print("These numbers could be telemarketers: ")
-for item in telemarks:
-    print(item)
-
-
+for each in telemarketers:
+    print(each)
+    
 """ 
 Big O calculation (worst case):
 
-O == 2n + 2n log n + n^2 = n^2  ,
- even We have n log(n) by  sort() operation we have to check each item from list A 
- and compare it with each item in list B , so n*n = n^2 the worst case. 
+O == 3n + 3n log n  => O(3n log n) => O(n log n),
+ We have n log(n) by sort() operation we have to check each item from list A 
+  
 
 
 """

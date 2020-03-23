@@ -19,21 +19,45 @@ Print a message:
 "<telephone number> spent the longest time, <total time> seconds, on the phone during 
 September 2016.".
 """
+longest = {}
+
+key = 0
+value = 0
+
 if len(calls) !=0:
-    max_duration = 0
+   
     for row in calls:
+        ## checking all outgoing unique calls (property of dictionary)  and composing time spending for particular caller if there is no such caller's number in the dictionary
+        if row[0] not in longest.keys():
+            longest[row[0]] = int(row[3])
+        else:
+            ## adding spent time to the existing caller numbers
+            value = longest.get(row[0])
+            value += int(row[3])
+            longest[row[0]] = value
+
+    for row in calls:
+        ## checking all recievers unique nubmers (property of dictionary)  and composing time spending for particular reciever if there is no such reciever's number in the dictionary
+        if row[1] not in longest.keys():
+            longest[row[1]] = int(row[3])
+        else:
+            value = longest.get(row[1])
+            value += int(row[3])
+            longest[row[1]] = value
+
+max_duration = max(longest.values())
+phone_number = ""
+for key,value in longest.items():
+    if max_duration == value:
+        phone_number = key
+
         
-        if int(row[3])>max_duration:
-            max_duration = int(row[3])
-            phone_number_in = row[0]
-            phone_number_out = row[1]
-      
-    print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(phone_number_in,max_duration))
+print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(phone_number,max_duration))
 
 """ 
 Big O calculation (worst case):
 
-O == 2n  => n , because of linear dependency of the lists length. We have 2 lists by n items . 
+O == 2n +n => n , because of linear dependency of the lists length. We have 2 lists by n items . 
 
 
 """

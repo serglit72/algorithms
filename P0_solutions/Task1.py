@@ -19,20 +19,26 @@ Print a message:
 "There are <count> different telephone numbers in the records."
 """
 if len(calls) !=0:
-    phone_numbers_in = []   
-    phone_numbers_out = [] 
-    total = []  
-    for row in calls:
-        phone_numbers_in.append(row[0])
-        phone_numbers_out.append(row[1])
-    total = set(phone_numbers_in+phone_numbers_out)
+    phone_numbers = set()   
+   
 
-    print("There are {} different telephone numbers in the records.".format(len(total)))
+ # counting unique numbers from incoming and outgoing callers lists into the set:     
+    for row in calls:
+        phone_numbers.add(row[0])
+        phone_numbers.add(row[1])
+ 
+ # counting unique numbers from incoming and outgoing texters lists into the same set:
+    for row in texts:
+        phone_numbers.add(row[0])
+        phone_numbers.add(row[1]) 
+    
+    
+    print("There are {} different telephone numbers in the records.".format(len(phone_numbers)))
 
 """ 
 Big O calculation (worst case):
 
-O == 2n + n = 3n => n , because of linear dependency of the lists length. We have 2 lists by n items and "set" operation O(n). 
+O == 2n => n , because of linear dependency of the lists length. We have 2 lists by n items and "set" operation O(n). 
 
 
 """
