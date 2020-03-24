@@ -53,11 +53,3 @@ for key,value in longest.items():
 
         
 print("{} spent the longest time, {} seconds, on the phone during September 2016.".format(phone_number,max_duration))
-
-""" 
-Big O calculation (worst case):
-
-O == 2n +n => n , because of linear dependency of the lists length. We have 2 lists by n items . 
-
-
-"""

@@ -48,13 +48,3 @@ telemarketers = sorted(telemarks)
 print("These numbers could be telemarketers: ")
 for each in telemarketers:
     print(each)
-    
-""" 
-Big O calculation (worst case):
-
-O == 3n + 3n log n  => O(3n log n) => O(n log n),
- We have n log(n) by sort() operation we have to check each item from list A 
-  
-
-
-"""

@@ -34,11 +34,3 @@ if len(calls) !=0:
     
     
     print("There are {} different telephone numbers in the records.".format(len(phone_numbers)))
-
-""" 
-Big O calculation (worst case):
-
-O == 2n => n , because of linear dependency of the lists length. We have 2 lists by n items and "set" operation O(n). 
-
-
-"""

@@ -44,26 +44,27 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 codes = set()
-fixed_lines_calls = 0
-bangalores_caller = 0
+bangalores_caller_out = 0
+bangalores_caller_in = 0
 ###### Part A ################
 for row in calls:
 
 # looking up for all callers form Bangalore:  
     if row[0].startswith("(080)"):
-      bangalores_caller += 1
+      bangalores_caller_out+= 1 # for Part B calculations
       #filtering for all mobile lines recievers of the calls by "area code 080" callers
       if row[1].startswith("7") or row[1].startswith("8") or row[1].startswith("9"):
         code = row[1][0:4]
         codes.add(code)
-# filtering for all fixed lines recievers of the calls by "area code 080" callers
+# filtering for all recievers of the calls in Bangalore " code 080" 
+      elif row[1].startswith("(080)"):
+          bangalores_caller_in += 1 # for Part B calculations
+# filtering for all fixed lines recievers
       elif row[1].startswith("("):
         code = row[1][1:(row[1].find(')'))]
-        fixed_lines_calls += 1 #additional counting of calls for Task2
         codes.add(code)
         
        
-
 
 print("The numbers called by people in Bangalore have codes:")
 for each in sorted(codes):
@@ -73,13 +74,4 @@ for each in sorted(codes):
 
 
 print("{:.2%} of calls from fixed lines in Bangalore are calls \
- to other fixed lines in Bangalore.".format(fixed_lines_calls/bangalores_caller))
-
-""" 
-Big O calculation (worst case):
-
-O == n + n log n =  n log(n)  , because of linear dependency of the lists length. \
-   We have 1 list by n items and "set" operation O(n) and sort() operation n log(n). 
-
-O(nlog(n))
-"""
+ to other fixed lines in Bangalore.".format(bangalores_caller_in/bangalores_caller_out))

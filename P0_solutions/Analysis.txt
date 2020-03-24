@@ -1,0 +1,25 @@
+TASK 0:
+
+Worst case time-complexity is Big O(1)
+The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+
+TASK 1:
+
+Worst case time-complexity is Big O(1)
+The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+
+TASK 2:
+
+Worst case time-complexity is Big O(1)
+The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+
+
+TASK 3:
+
+Worst case time-complexity is Big O(1)
+The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+
+TASK 4:
+
+Worst case time-complexity is Big O(1)
+The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
