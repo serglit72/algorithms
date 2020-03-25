@@ -1,25 +1,52 @@
-TASK 0:
+TASK 0: \
 
-Worst case time-complexity is Big O(1)
-The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+Worst case time-complexity is Big O(1) \
+The time-complexity for this program is Big O(1) because we are not iterating the elements \
+ from input lists (calls or texts).  \
+ We are accessing the first and last value from the lists (calls and texts) by an index. \
 
-TASK 1:
+TASK 1: \
 
-Worst case time-complexity is Big O(1)
-The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+Worst case time-complexity is Big O(4n) \
+Insertion an element into set is done by set.add() function,  \
+where Big O(1) is in average, but the worst case might be Big O(n). \
+ We are inserting the elements for 2 by 2 iteration  and so Big O(4n). \
 
-TASK 2:
+TASK 2: \
 
-Worst case time-complexity is Big O(1)
-The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+Worst case time-complexity is Big O(2n^2) \
+The time-complexity for this program is Big O(n^2) because we are iterating the elements \
+from input lists (calls and texts) Big O(n) and inside of the loop, we use iteration of the  \
+dictionary (ex. if row[0] not in longest.keys():) where we have Big O(n). \
+And we repeat this operation 2 times, so Big O(2n^2) \
 
 
-TASK 3:
+TASK 3: \
 
-Worst case time-complexity is Big O(1)
-The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+Worst case time-complexity is Big O(4n^2 +n log n) \
+The time-complexity for this program is Big O(4n^2 +n log n) because we are iterating the elements \
+from input lists (incoming and outgoing calls) so its Big O(n) and inside of the loop, \
+we insert an element into set (is done by set.add() function),  \
+where Big O(1) is in average, but the worst case might be Big O(n). \
+ We are inserting the elements from 2 lists by 2 iteration  and so  the Big O(4n^2). \
+ In addition, we used sorting (sorted() function) set. So we have Big O(n log n) for this operation. \
+ To summarize these two cases we have got the Big O(4n^2 +n log n)  \
 
-TASK 4:
+TASK 4: \
 
-Worst case time-complexity is Big O(1)
-The time-complexity for this program is Big O(1) because we are not iterating the elements from input lists (calls or texts). We are accessing the first and last value from the lists (calls and texts) by an index.
+Worst case time-complexity is Big O(n^3 +n log n) 
+The time-complexity for this program is Big O(3n^2 +n log n) because we are iterating the elements \
+from input lists (incoming and outgoing calls and texters) so its Big O(2n) and inside of the loop, \
+we insert an element into set (is done by set.add() function),  \
+where Big O(1) is in average, but the worst case might be Big O(n). For now we have Big O(2n^2) \
+
+Then we're iterating throught "calls" list (O(n)) and inside of the loop checking if the element in \
+set "texters" (O(n)) and then we do inserting new elenent into the set (O(n)) by  set.add(). \
+
+ >for row in calls: \
+ >   if row[0] not in texters: \
+ >      telemarks.add(row[0]) \
+ 
+
+ In addition, we used sorting (sorted() function) of the set. So we have Big O(n log n) for this operation. \
+ To summarize these two cases we have got the  worst case Big O(n^3 +n log n)     \
