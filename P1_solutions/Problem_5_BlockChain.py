@@ -47,7 +47,7 @@ class Chain:
         return self.head.previous_hash
 
 
-
+#TESTING
 # timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%f%Z")
 # data = "some data string1"
 # data1 = "ajhsdflhaelifqiewfhdsvjax"
