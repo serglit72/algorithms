@@ -3,4 +3,5 @@ I've implemented a **set()** as a middle array to get a set of common values of 
 
 **union** = all elements from both set with no duplicates
 
-Time complexity - **O(3nlog(n))**
+Time complexity - **O(m+n)**
+Space complexity - **O(m+n)**

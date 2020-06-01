@@ -16,7 +16,7 @@ class LRU_Cache:
 
     def __init__(self, capacity):
         # Initialize class variables
-        if capacity<=0:
+        if capacity <= 0:
             print("Capacity should be > 0 !")
             return
         self.capacity = capacity
@@ -29,7 +29,7 @@ class LRU_Cache:
     def get(self, key):
         # Retrieve data from provided key. Return -1 if nonexistent. 
         if key not in self.hash_map:
-            print("-1")
+            print("-1, key "+str(key)+" doesn't exist")
             return
         
         node = self.hash_map[key]
@@ -43,7 +43,10 @@ class LRU_Cache:
         print(node.data)
         return node.data
 
-    def set(self, key, data):
+    def _set(self, key, data):
+        if key > self.capacity:
+            print("Capacity is 0.Check the value")
+            return
         #check if the key is present in the hash_map
         if key in self.hash_map:
             node = self.hash_map[key] #assign  a key to the node
@@ -52,13 +55,19 @@ class LRU_Cache:
         else:
             new_node = Node(key,data) # new instanse of the Node
             if self.size == self.capacity:#check if capacity is not exceed (cache hit)
-                data = self.end.data #
+                data = self.end.data #moving to the end
                 del self.hash_map[self.end.key] #delete the key from hash_map, where 
-                self.delete_element_by_data(data)
+                self.delete_element_by_data(data) #delete element from the end
+                self.insert_start(new_node)
+                self.hash_map[key] = new_node
+            else:
+                self.insert_start(new_node)
+                self.hash_map[key] = new_node
+            
+        # return
+            
 
-            self.insert_start(new_node)
-            self.hash_map[key] = new_node
-      
+
     def ssize(self): #getting a size of the DLL
         
         if self.head is None:
@@ -82,47 +91,41 @@ class LRU_Cache:
         
         if not self.head:
             self.head = node
-            self.end = node
+            self.end = self.head
         else:
             node.prev = None
             node.next = self.head
             self.head.prev = node
             self.head = node
+        # self.hash_map[node.key] = node
         self.size += 1
         
 
     def delete_element_by_data(self, x):
-            
-            if self.head is None: #check if the DLL is empty
+            cur = self.head
+            if cur is None: #check if the DLL is empty
                 print("The list has no element to delete")
                 return 
-        
-            if self.head.next is None: #check if DLL has 1 node
-                if self.head.data == x: # and the only one node == x
-                    self.head = self.head.next
-                    self.head.prev = None # deleting the head
-                    self.size-=1  
-                else:
-                    print("Item not found")
-                return 
-
-            if self.end.data == x: #deleting end node
-                node = self.end
-                self.end = node.prev
+                
+            elif cur.data == x: # and the only one node == head == x
+                self.head = cur.next
+                self.size -=1  
+           
+            elif self.end.data == x: #deleting node from the end
+                self.end = self.end.prev
                 self.end.next = None
                 self.size -=1
             else:
             #removing node from the middle
-                node = self.head
-                while node.next:
-                    if node.data == x:
-                        break
-                    node = node.next
                 
-                node.prev.next = node.next
-                node.next.prev = node.prev   
-
-
+                while cur:
+                    if cur.data == x:
+                        cur.prev.next = cur.next
+                        cur.next.prev = cur.prev
+                        self.size -=1
+                    cur = cur.next
+                    
+            
     def print_elements(self):
         
         n = self.head
@@ -133,23 +136,48 @@ class LRU_Cache:
         print("None")
       
    
-        
-our_cache = LRU_Cache(5)
+# Testcase #1 cache capacity == 5       
+# our_cache = LRU_Cache(5)
 
-our_cache.set(1, 1)
-our_cache.set(2, 2)
-our_cache.set(3, 3)
-our_cache.set(4, 4)
+# our_cache._set(1, 1)
+# our_cache._set(2, 2)
+# our_cache._set(3, 3)
+# our_cache._set(4, 4)
+# our_cache.print_elements()
+# our_cache.get(1)       # returns 1
+# our_cache.get(2)       # returns 2
+# our_cache.get(9)      # returns -1 because 9 is not present in the cache
+# our_cache._set(5, 5) 
+# our_cache._set(6, 6)
+# our_cache.get(3)      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+
+# Testcase #2  cache capacity == 1
+# our_cache = LRU_Cache(1)
+# our_cache._set(1, 1)
+# our_cache.print_elements()
+# our_cache._set(2, 2)
+# our_cache.print_elements()
+# our_cache._set(3, 3)
+# our_cache._set(4, 4)
+# our_cache.print_elements()
+
+# our_cache.get(1)       # returns -1
+
+# our_cache.get(2)       # returns -1
+
+# our_cache.get(4)      # returns 4 because 4 is present in the cache
+
+# our_cache.get(3)      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+
+# Testcase #3  cache capacity == 0
+our_cache = LRU_Cache(0)
+our_cache._set(1, 1)
+our_cache.print_elements()
+our_cache._set(2, 2)
 our_cache.print_elements()
 
-our_cache.get(1)       # returns 1
+our_cache.get(1)       # returns -1
 
-our_cache.get(2)       # returns 2
+our_cache.get(2)       # returns -1
 
-our_cache.get(9)      # returns -1 because 9 is not present in the cache
 
-our_cache.set(5, 5) 
-
-our_cache.set(6, 6)
-
-our_cache.get(3)      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry

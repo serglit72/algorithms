@@ -89,12 +89,46 @@ if __name__ == "__main__":
     codes = {}
 
     a_great_sentence = "The bird is the word"
-    # a_great_sentence = 'AAAAAAABBBCCCCCCCDDEEEEEE'
-    
+    a_great_sentence1 = 'AAAAAAABBBCCCCCCCDDEEEEEE'
+    a_great_sentence2 = 'This article isn’t intended to provide an exhaustive list of the idiomatic usages in Python programming'
+
+
+#Test 1
+
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     print ("The content of the data is: {}\n".format(a_great_sentence))
    
     encoded_data, tree = huffman_encoding(a_great_sentence)
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
+
+#Test 2
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence1)))
+    print ("The content of the data is: {}\n".format(a_great_sentence1))
+   
+    encoded_data, tree = huffman_encoding(a_great_sentence1)
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
+
+#Test 3
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence2)))
+    print ("The content of the data is: {}\n".format(a_great_sentence2))
+   
+    encoded_data, tree = huffman_encoding(a_great_sentence2)
 
     print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
     print ("The content of the encoded data is: {}\n".format(encoded_data))
