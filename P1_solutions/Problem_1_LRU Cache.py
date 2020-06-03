@@ -16,14 +16,21 @@ class LRU_Cache:
 
     def __init__(self, capacity):
         # Initialize class variables
-        if capacity <= 0:
+        
+        if not capacity:
             print("Capacity should be > 0 !")
+            self.capacity = None
+            self.hash_map = {}
+            self.head = None
+            self.end = None
+            self.size = 0
             return
-        self.capacity = capacity
-        self.hash_map = {}
-        self.head = None
-        self.end = None
-        self.size = 0
+        else:
+            self.capacity = capacity
+            self.hash_map = {}
+            self.head = None
+            self.end = None
+            self.size = 0
 
     
     def get(self, key):
@@ -44,11 +51,14 @@ class LRU_Cache:
         return node.data
 
     def _set(self, key, data):
-        if key > self.capacity:
+        if self.capacity is None:
+            return 
+        
+        elif key > self.capacity:
             print("Capacity is 0.Check the value")
             return
         #check if the key is present in the hash_map
-        if key in self.hash_map:
+        elif key in self.hash_map:
             node = self.hash_map[key] #assign  a key to the node
             node.data = data    #assign data to the node
 
@@ -127,14 +137,15 @@ class LRU_Cache:
                     
             
     def print_elements(self):
-        
-        n = self.head
-        print("[head = %s, end = %s]" % (self.head.data, self.end.data), end=" ")
-        while n:
-            print("%s <-> " % (n.data), end = "")
-            n = n.next
-        print("None")
-      
+        if self.size != 0:
+            n = self.head
+            print("[head = %s, end = %s]" % (self.head.data, self.end.data), end=" ")
+            while n:
+                print("%s <-> " % (n.data), end = "")
+                n = n.next
+            print("None")
+        else:
+            return -1
    
 # Testcase #1 cache capacity == 5       
 # our_cache = LRU_Cache(5)
@@ -170,7 +181,18 @@ class LRU_Cache:
 # our_cache.get(3)      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
 
 # Testcase #3  cache capacity == 0
-our_cache = LRU_Cache(0)
+# our_cache = LRU_Cache(0)
+# our_cache._set(1, 1)
+# our_cache.print_elements()
+# our_cache._set(2, 2)
+# our_cache.print_elements()
+
+# our_cache.get(1)       # returns -1
+
+# our_cache.get(2)       # returns -1
+
+# Testcase #4  cache capacity == None
+our_cache = LRU_Cache(None)
 our_cache._set(1, 1)
 our_cache.print_elements()
 our_cache._set(2, 2)
@@ -179,5 +201,4 @@ our_cache.print_elements()
 our_cache.get(1)       # returns -1
 
 our_cache.get(2)       # returns -1
-
 

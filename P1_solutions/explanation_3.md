@@ -2,6 +2,9 @@ The Huffmann algorithm is most known algorithm for compress data without losses.
 The main idea is to use proper approach to mapping data symbols from input. In order to simplify the implementation I converted the pairs of character occurence and frequency in reversed way. 
 
 That made much easier to build a tree and traverse it on the next phase where I created a code map.
-    The code mapping is created recursively (**Time complexity = O(n)**)
+The code mapping is created recursively 
 
 The time complexity of the Huffman algorithm is **O(nlogn)**. Using a heap to store the weight of each tree, each iteration requires **O(logn)** time to determine the cheapest weight and insert the new weight. There are **O(n)** iterations, one for each item.
+
+**Space complexity** - **O(nm)**, where **m** is the maximum depth of recursion. 
+**Time complexity = O(nlogn)**

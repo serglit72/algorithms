@@ -5,34 +5,43 @@ import sys
 def occurence(data_string):
     char_occurence = dict()
     string = data_string
-    for i in string:
-        if i in char_occurence:
-            char_occurence[i]+=1
-        else:
-            char_occurence[i]=1
-    
+    if len(data_string)>0:
+        for i in string:
+            if i in char_occurence:
+                char_occurence[i]+=1
+            else:
+                char_occurence[i]=1
+    else:
+        return None
     return char_occurence
 
 def convertToTuples(data_dict):
-    mylist =  []
-    for k,v in data_dict.items():
-        mylist.append((v,k))
+    try: 
+        mylist =  []
+        for k,v in data_dict.items():
+            mylist.append((v,k))
+    except:
+        return -1
     return mylist
 
 def occurenceToTree(mylist):
     s_list = []
-    for each in mylist:
-        heapq.heappush(s_list,[each])
-    while len(s_list)>1:
-        left_child = heapq.heappop(s_list)
-        right_child = heapq.heappop(s_list)
-        freq_l, label_l = left_child[0]
-        freq_r,label_r = right_child[0]
-        freq = freq_l+freq_r
-        label = "".join([str(label_l),str(label_r)])
-        node = [(freq,label),left_child,right_child]
-        heapq.heappush(s_list,node)
-    return s_list.pop()
+    if len(mylist) !=0:
+        for each in mylist:
+            heapq.heappush(s_list,[each])
+        while len(s_list)>1:
+            left_child = heapq.heappop(s_list)
+            right_child = heapq.heappop(s_list)
+            freq_l, label_l = left_child[0]
+            freq_r,label_r = right_child[0]
+            freq = freq_l+freq_r
+            label = "".join([str(label_l),str(label_r)])
+            node = [(freq,label),left_child,right_child]
+            heapq.heappush(s_list,node)
+    
+        return s_list.pop()
+    else:
+        return -1
 
 def codeMapCreate(codeTree):
     codeMap = {}
@@ -51,47 +60,56 @@ def codeMapCreate(codeTree):
     return codeMap
 
 def huffman_encoding(data):
-    data_dict = occurence(data)
-    s_list = convertToTuples(data_dict)
-    codeTree = occurenceToTree(s_list)
-    tree = codeTree.copy()
-    codeMap = codeMapCreate(codeTree)
-    encoded_data = ''
-    for each in data:
-        if each in codeMap.keys():
-            code = codeMap.get(each)
-            encoded_data += code
-        else:
-            print("No such letter in data")
+    if len(data) == 0 :
+        return None,None
+    else:
+        data_dict = occurence(data)
+        s_list = convertToTuples(data_dict)
+
+        codeTree = occurenceToTree(s_list)
+        tree = codeTree.copy()
+        codeMap = codeMapCreate(codeTree)
     
-    return encoded_data, tree
+        encoded_data = ''
+        for each in data:
+            if each in codeMap.keys():
+                code = codeMap.get(each)
+                encoded_data += code
+            else:
+                print("No such letter in data")
+        return encoded_data, tree
+   
+        
 
 def huffman_decoding(data,tree):
-    
-    codeTree = tree
-    root = tree
-    
-    decoded_data = ""
-    for each in data:
+    try:
+        codeTree = tree
+        root = tree
         
-        if each=="0":
-            label = codeTree[1]
-            codeTree = label
-        else:
-            label = codeTree[2]
-            codeTree = label
-        if len(codeTree)==1: 
-            decoded_data +=label[0][1]
-            codeTree = root
-    return decoded_data
-
+        decoded_data = ""
+    
+        for each in data:
+            
+            if each=="0":
+                label = codeTree[1]
+                codeTree = label
+            else:
+                label = codeTree[2]
+                codeTree = label
+            if len(codeTree)==1: 
+                decoded_data +=label[0][1]
+                codeTree = root
+        return decoded_data
+    except TypeError: 
+        print("Empty data")
+    
 if __name__ == "__main__":
-    codes = {}
+    # codes = {}
 
     a_great_sentence = "The bird is the word"
     a_great_sentence1 = 'AAAAAAABBBCCCCCCCDDEEEEEE'
     a_great_sentence2 = 'This article isn’t intended to provide an exhaustive list of the idiomatic usages in Python programming'
-
+    a_great_sentence3 = ""
 
 #Test 1
 
@@ -131,6 +149,21 @@ if __name__ == "__main__":
     encoded_data, tree = huffman_encoding(a_great_sentence2)
 
     print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
+    print ("The content of the encoded data is: {}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the encoded data is: {}\n".format(decoded_data))
+
+#Test 4
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence3)))
+    print ("The content of the data is: {}\n".format(a_great_sentence3))
+   
+    encoded_data, tree = huffman_encoding(a_great_sentence3)
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(str(encoded_data))))
     print ("The content of the encoded data is: {}\n".format(encoded_data))
 
     decoded_data = huffman_decoding(encoded_data, tree)

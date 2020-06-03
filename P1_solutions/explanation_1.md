@@ -5,3 +5,4 @@ The hash table is implemented to assign a unique address to the node (element of
     
 **Time complexity** - **O(1)**
  because the hash table makes the time of **'get()'** like **O(1)**. The list of double linked nodes makes the nodes adding/removal operations **O(1)**.
+ **Space complexity** - **O(n)**, where **n** is lenght of the linked list
